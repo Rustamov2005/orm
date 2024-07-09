@@ -1,18 +1,18 @@
 from django.shortcuts import render
 
-from book.models import Book, Author, Comments, User, Adreess
+from .models import Book, Author, Comments, User, Adress
 
 
 def boook(request):
     if request.method == 'POST':
         search = request.POST['search']
-        all_books = Book.objects.filter(title__icontains=search) | Book.objects.filter(author__icontains=search)
-        if boook:
-            return render(request, 'Book.html', {'books': all_books, "value": search, "message": "Succisfully"})
+        book = Book.objects.filter(title__icontains=search) | Book.objects.filter(author__icontains=search)
+        if book.exists():
+            return render(request, 'Book.html', {'book': book, "value": search, "message": "Successfully"})
         else:
-            return render(request, 'Book.html', {'books': all_books, "value": search, "message": "Not found"})
+            return render(request, 'Book.html', {'book': book, "value": search, "message": "Not found"})
     book = Book.objects.all()
-    return render(request, 'Book.html', {"books": book})
+    return render(request, 'Book.html', {"book": book})
 
 
 def author(request):
@@ -45,14 +45,30 @@ def users(request):
     return render(request, 'users.html', context=context)
 
 
-def address(request):
+def adreslar(request):
     if request.method == 'POST':
         search = request.POST['search']
-        all_address = Adreess.objects.filter(address__icontains=search)
-        if Adreess:
-            return render(request, 'Adress.html', {"address": all_address, "value": search, "message": "Succisfully"})
+        all_address = Adress.objects.filter(name__icontains=search)  # Assuming you are searching by 'name' field
+        if all_address.exists():  # Check if queryset is not empty
+            return render(request, 'Adress.html', {"address": all_address, "value": search, "message": "Successfully found"})
         else:
-            return render(request, 'Adress.html', {"address": all_address, "value": search, "message": "Not fount"})
+            return render(request, 'Adress.html', {"address": all_address, "value": search, "message": "Not found"})
 
-    address = Adreess.objects.all()
-    return render(request, 'Adress.html', {"address": address})
+    all_address = Adress.objects.all()
+    return render(request, 'Adress.html', {"address": all_address})
+
+
+def book_detail(request, id):
+    book = Book.objects.get(id=id)
+    if book:
+        return render(request, 'book_detail.html', {"book": book, "message": "Succisfully"})
+    else:
+        return render(request, 'book_detail.html', {"book": book, "message": "Not found"})
+
+
+def adrs_detail(request, id):
+    adress = Adress.objects.get(id=id)
+    if adress:
+        return render(request, 'adres_detail.html', {"adress": adress, "message": "Succisfully"})
+    else:
+        return render(request, 'adres_detail.html', {"adress": adress, "message": "Not found"})

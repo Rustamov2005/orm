@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Book, Author, Comments, Adreess
+from .models import Book, Author, Comments, Adress
 from import_export.admin import ImportExportModelAdmin
 
 @admin.register(Book)
@@ -23,4 +23,4 @@ class CommentsAdmin(ImportExportModelAdmin):
     search_fields = ('user', 'text')
     ordering = ('-user', 'text')
 
-admin.site.register(Adreess)
+admin.site.register(Adress)
