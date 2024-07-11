@@ -1,8 +1,9 @@
 from django.shortcuts import render
-
+from django.contrib.auth.decorators import login_required
 from .models import Book, Author, Comments, User, Adress
 
 
+# @login_required()
 def boook(request):
     if request.method == 'POST':
         search = request.POST['search']
@@ -58,8 +59,9 @@ def adreslar(request):
     return render(request, 'Adress.html', {"address": all_address})
 
 
-def book_detail(request, id):
-    book = Book.objects.get(id=id)
+@login_required()
+def book_detail(request, slug):
+    book = Book.objects.get(slug=slug)
     if book:
         return render(request, 'book_detail.html', {"book": book, "message": "Succisfully"})
     else:

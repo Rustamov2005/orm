@@ -11,6 +11,6 @@ urlpatterns = [
     path('commints/', comments, name='comments'),
     path('users/', users, name='users'),
     path('address/', adreslar, name='address'),
-    path('books/<int:id>/', book_detail, name='book-detail'),
+    path('books/<slug:slug>/', book_detail, name='book-detail'),
 
 ]
