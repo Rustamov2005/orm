@@ -7,13 +7,13 @@ from .models import Book, Author, Comments, User, Adress
 def boook(request):
     if request.method == 'POST':
         search = request.POST['search']
-        book = Book.objects.filter(title__icontains=search) | Book.objects.filter(author__icontains=search)
-        if book.exists():
-            return render(request, 'Book.html', {'book': book, "value": search, "message": "Successfully"})
+        book = Book.objects.filter(title__icontains=search)
+        if book:
+            return render(request, 'Book.html', {'books': book, "value": search, "message": "Successfully"})
         else:
-            return render(request, 'Book.html', {'book': book, "value": search, "message": "Not found"})
+            return render(request, 'Book.html', {'books': book, "value": search, "message": "Not found"})
     book = Book.objects.all()
-    return render(request, 'Book.html', {"book": book})
+    return render(request, 'Book.html', {"books": book})
 
 
 def author(request):
@@ -61,11 +61,11 @@ def adreslar(request):
 
 @login_required()
 def book_detail(request, slug):
-    book = Book.objects.get(slug=slug)
+    book = Book.objects.get(Book, slug=slug)
     if book:
-        return render(request, 'book_detail.html', {"book": book, "message": "Succisfully"})
+        return render(request, 'book_detail.html', {"books": book, "message": "Succisfully"})
     else:
-        return render(request, 'book_detail.html', {"book": book, "message": "Not found"})
+        return render(request, 'book_detail.html', {"books": book, "message": "Not found"})
 
 
 def adrs_detail(request, id):

@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout
+from django.contrib import messages
+from .models import Dokon, History
 
 
 def login_vewes(request):
@@ -10,11 +12,14 @@ def login_vewes(request):
         if login_form.is_valid():
             user = login_form.get_user()
             login(request, user)
-            return redirect('book')
+            return redirect('books')  # books URL nomi to'g'ri ekanligiga ishonch hosil qiling
         else:
-            return render(request, 'auth/login.html', context={"message": "Username or password invalled"})
-    return render(request, 'auth/login.html')
-
+            for msg in login_form.error_messages:
+                messages.error(request, f"{msg}: {login_form.error_messages[msg]}")
+            return render(request, 'auth/login.html', {'form': login_form})
+    else:
+        login_form = AuthenticationForm()
+    return render(request, 'auth/login.html', {'form': login_form})
 
 def regeter_vewes(request):
     if request.method == "POST":
@@ -38,5 +43,14 @@ def regeter_vewes(request):
 
 def logout_vewes(request):
     logout(request)
-    return redirect('book')
+    return redirect('book/book')
 
+
+def dokon_vewes(request):
+    kitob = Dokon.objects.all()
+    return render(request, 'accaunt/dokon.html', {'kitob': kitob})
+
+
+def history_vewes(request):
+    history = History.objects.all()
+    return render(request, 'accaunt/history.html', {'history': history})
