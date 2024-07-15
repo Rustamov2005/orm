@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load static %}
+</head>
+<body>
+    <h1>This is tarix page!</h1>
+    <a href="http://127.0.0.1:8000/dokon/">Dokon</a>
+    <a href="http://127.0.0.1:8000/accaunt/">Back</a>
+    {% for kitob in tarix %}
+        <div>
+            <h2>{{ kitob.Title }}</h2>
+            <p>{{ kitob.Description }}</p>
+            <p>{{ kitob.price }}</p>
+            <p>{{ kitob.author }}</p>
+            <img src="{{ kitob.img.url }}" alt="Rasim topilmadi!">
+        </div>
+    {% endfor %}
+</body>
+</html>

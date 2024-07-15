@@ -35,8 +35,8 @@
               </button>
               <ul class="dropdown-menu dropdown-menu-dark">
                     {% if request.user.is_authenticated %}
-                        <li><a class="dropdown-item active" href="#">Accaunt</a></li>
-                        <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+                        <li><a class="dropdown-item active" href="http://127.0.0.1:8000/accaunt/">Accaunt</a></li>
+                        <li><a class="dropdown-item" href="{% url 'register' %}">Logout</a></li>
                     {% else %}
                         <li><a class="dropdown-item active" href="{% url 'login' %}">Login</a></li>
                         <li><a class="dropdown-item" href="{% url 'register' %}">Register</a></li>

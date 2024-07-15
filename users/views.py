@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout
 from django.contrib import messages
-from .models import Dokon, History
 
 
 def login_vewes(request):
@@ -46,11 +45,3 @@ def logout_vewes(request):
     return redirect('book/book')
 
 
-def dokon_vewes(request):
-    kitob = Dokon.objects.all()
-    return render(request, 'accaunt/dokon.html', {'kitob': kitob})
-
-
-def history_vewes(request):
-    history = History.objects.all()
-    return render(request, 'accaunt/history.html', {'history': history})
