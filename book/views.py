@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .models import Book, Author, Comments, User, Adress
+from .forms import BookForm
 
 
 # @login_required()
@@ -74,3 +75,10 @@ def adrs_detail(request, id):
         return render(request, 'adres_detail.html', {"adress": adress, "message": "Succisfully"})
     else:
         return render(request, 'adres_detail.html', {"adress": adress, "message": "Not found"})
+
+
+def create_book(request):
+    if request.method == 'POST':
+        form = BookForm(request.POST, request.FILES)
+    form = BookForm()
+    return render(request, 'create_book.html', {"form": form})

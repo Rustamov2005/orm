@@ -27,7 +27,3 @@ class Tarix(models.Model):
 
 class Profil(models.Model):
     pass
-
-
-
-

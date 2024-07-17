@@ -7,10 +7,12 @@
   {% for book in books %}
           <div>
               <img src="{{ book.img.url }}" alt="Rasim topilmadi">
+              <p>{{ book.title }}</p>
+              <a href="{% url 'create_book' %}">
+                  <button type="submit" >Book create</button>
+              </a>
           </div>
-              <div class="card-body">
 
-              </div>
   {% endfor %}
 <a href="http://127.0.0.1:8000/commints/">Commints</a> | <a href="http://127.0.0.1:8000/author/">Author</a>
 {% endblock %}
