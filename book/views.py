@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Book, Author, Comments, User, Adress
 from .forms import BookForm
@@ -79,6 +79,22 @@ def adrs_detail(request, id):
 
 def create_book(request):
     if request.method == 'POST':
-        form = BookForm(request.POST, request.FILES)
+        form = BookForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('book')
+        else:
+            return render(request, 'create_book.html', {"form": form, 'message_error': "qayirdadir o'zgarish bor"})
     form = BookForm()
     return render(request, 'create_book.html', {"form": form})
+
+
+def book_detail_viwe(request, id):
+    book = Book.objects.get(id=id)
+    return render(request, 'course_detail.html', {"books": book})
+
+
+def book_delete_viwe(request, id):
+    book = Book.objects.get(id=id)
+    book.delete()
+    return redirect('book')
